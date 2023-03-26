@@ -1,11 +1,14 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
-import { ActivityIndicator, Text, View } from 'react-native';
+import { ActivityIndicator, View } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { MoviePoster } from '../components/MoviePoster';
 import { useMovies } from '../hooks/useMovies';
 
 export const HomeScreen = () => {
 
   const { moviesNowPlaying, isLoading } = useMovies();
+  const { top } = useSafeAreaInsets();
 
   if (isLoading) {
     return (
@@ -16,8 +19,10 @@ export const HomeScreen = () => {
   }
 
   return (
-    <View style={{ flex: 1, justifyContent: 'center', alignContent: 'center' }}>
-      <Text>{ moviesNowPlaying[1]?.title }</Text>
+    <View style={{ marginTop: top + 20 }}>
+      <MoviePoster
+        movie={moviesNowPlaying[2]}
+      />
     </View>
   );
 };
